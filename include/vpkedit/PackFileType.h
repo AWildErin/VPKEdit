@@ -9,6 +9,7 @@ enum class PackFileType {
 	GMA,
 	VPK,
 	ZIP,
+	BSA,
 };
 
 } // namespace vpkedit

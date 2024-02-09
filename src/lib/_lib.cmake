@@ -33,6 +33,7 @@ add_library(
         "${CMAKE_CURRENT_SOURCE_DIR}/include/vpkedit/Version.h"
         "${CMAKE_CURRENT_SOURCE_DIR}/include/vpkedit/VPK.h"
         "${CMAKE_CURRENT_SOURCE_DIR}/include/vpkedit/ZIP.h"
+        "${CMAKE_CURRENT_SOURCE_DIR}/include/vpkedit/BSA.h"
 
         "${CMAKE_CURRENT_LIST_DIR}/detail/CRC.cpp"
         "${CMAKE_CURRENT_LIST_DIR}/detail/FileStream.cpp"
@@ -43,7 +44,8 @@ add_library(
         "${CMAKE_CURRENT_LIST_DIR}/GMA.cpp"
         "${CMAKE_CURRENT_LIST_DIR}/PackFile.cpp"
         "${CMAKE_CURRENT_LIST_DIR}/VPK.cpp"
-        "${CMAKE_CURRENT_LIST_DIR}/ZIP.cpp")
+        "${CMAKE_CURRENT_LIST_DIR}/ZIP.cpp"
+        "${CMAKE_CURRENT_LIST_DIR}/BSA.cpp")
 
 target_link_libraries(lib${PROJECT_NAME} PUBLIC MD5 MINIZIP::minizip)
 

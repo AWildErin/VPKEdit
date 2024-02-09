@@ -10,6 +10,7 @@
 #include <vpkedit/GMA.h>
 #include <vpkedit/VPK.h>
 #include <vpkedit/ZIP.h>
+#include <vpkedit/BSA.h>
 
 using namespace vpkedit;
 using namespace vpkedit::detail;
