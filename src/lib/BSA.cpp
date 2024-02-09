@@ -33,6 +33,7 @@ std::unique_ptr<PackFile> BSA::open(const std::string& path, PackFileOptions opt
 	}
 
 	reader.read(archive->header.version);
+	reader.read(archive->header.folderRecordOffset);
 	reader.read(archive->header.archiveFlags);
 	reader.read(archive->header.folderCount);
 	reader.read(archive->header.fileCount);

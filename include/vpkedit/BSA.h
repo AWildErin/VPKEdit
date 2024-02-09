@@ -35,6 +35,7 @@ class BSA : public PackFile {
 	struct Header {
 		std::uint32_t fileId; // UESP specs this out as char[4], but that's a pain to manage
 		std::uint32_t version; // Skyrim LE uses 104, Skyrim SE uses 105
+		std::uint32_t folderRecordOffset;
 		ArchiveFlags archiveFlags;
 		std::uint32_t folderCount;
 		std::uint32_t fileCount; 
