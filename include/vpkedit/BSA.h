@@ -6,7 +6,7 @@ namespace vpkedit {
 
 constexpr std::int32_t BSA_ID = 'B' + ('S' << 8) + ('A' << 16) + ('\0' << 24);
 
-class BSA : public PackFile {
+class BSA : public PackFileReadOnly {
 	enum ArchiveFlags : std::uint32_t {
 		IncludeDirectoryNames		= 0x1,
 		IncludeFileNames			= 0x2,
@@ -50,12 +50,8 @@ public:
 
 	[[nodiscard]] std::optional<std::vector<std::byte>> readEntry(const Entry& entry) const override;
 
-	bool bake(const std::string& outputDir_ /*= ""*/, const Callback& callback /*= nullptr*/) override;
-
 protected:
 	BSA(const std::string& fullFilePath_, PackFileOptions options_);
-
-	Entry& addEntryInternal(Entry& entry, const std::string& filename_, std::vector<std::byte>& buffer, EntryOptions options_) override;
 
 	Header header{};
 private:

@@ -10,7 +10,7 @@
 using namespace vpkedit;
 using namespace vpkedit::detail;
 
-BSA::BSA(const std::string& fullFilePath_, PackFileOptions options_) : PackFile(fullFilePath_, options_) {
+BSA::BSA(const std::string& fullFilePath_, PackFileOptions options_) : PackFileReadOnly(fullFilePath_, options_) {
 	this->type = PackFileType::BSA;
 }
 
@@ -43,11 +43,7 @@ std::unique_ptr<PackFile> BSA::open(const std::string& path, PackFileOptions opt
 	reader.read(archive->header.padding);
 
 	return packFile;
-}
 
-Entry& BSA::addEntryInternal(Entry& entry, const std::string& filename_, std::vector<std::byte>& buffer, EntryOptions options_)
-{
-	return entry;
 }
 
 std::optional<std::vector<std::byte>> BSA::readEntry(const Entry& entry) const {
@@ -76,7 +72,3 @@ std::optional<std::vector<std::byte>> BSA::readEntry(const Entry& entry) const {
 	return std::nullopt;
 }
 
-bool BSA::bake(const std::string& outputDir_, const Callback& callback)
-{
-	return false;
-}
