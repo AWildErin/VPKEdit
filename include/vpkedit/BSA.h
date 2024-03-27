@@ -45,6 +45,30 @@ class BSA : public PackFileReadOnly {
 		std::uint16_t padding;
 	};
 	
+	struct FolderRecord {
+		std::uint64_t nameHash; // Hash of the folder name
+		std::uint32_t count;
+		std::uint32_t padding = 0; // v105 only
+		std::uint32_t offset; // Offset to the files in this record. Subtract totalFileNameLength to get the offset
+		std::uint32_t padding2 = 0; // v105 only
+	};
+
+	struct FileRecord {
+		std::uint64_t nameHash; // Hash of the file name
+		std::uint32_t size; // If the 30th bit is set in size: if files are default compressed, this one is not. if files are default not compressed, this file is compressed.
+		std::uint32_t offset; // Offset relative to the start of the file
+
+		std::string folder;
+		std::string name; // Set while parsing the name block
+
+		bool compressed;
+	};
+
+	struct FileRecordBlock {
+		std::string name; // Only present if bit 1 of ArchiveFlags is set
+		std::vector<FileRecord> fileRecords;
+	};
+
 public:
 	[[nodiscard]] static std::unique_ptr<PackFile> open(const std::string& path, PackFileOptions options = {}, const Callback& callback = nullptr);
 
@@ -54,6 +78,10 @@ protected:
 	BSA(const std::string& fullFilePath_, PackFileOptions options_);
 
 	Header header{};
+	std::vector<FolderRecord> folderRecords;
+	std::vector<FileRecordBlock> fileRecordBlocks;
+	std::vector<FileRecord> fileRecords;
+	std::vector<std::string> fileNames;
 private:
 	VPKEDIT_REGISTER_PACKFILE_EXTENSION(".bsa", &BSA::open);
 };
